@@ -24,25 +24,27 @@ class Force {
         
         switch self.angle {
         case ...90:
-            self.xComponent = self.mag * cos(self.angle)
-            self.yComponent = self.mag * sin(self.angle)
+            self.xComponent = (self.mag * cos(self.angle))
+            self.yComponent = (self.mag * sin(self.angle))
         case 90...180:
             let rAngle = 180 - self.angle
             self.xComponent = -(self.mag * cos(rAngle))
-            self.yComponent = self.mag * sin(rAngle)
+            self.yComponent = (self.mag * sin(rAngle))
         case 180...270:
             let rAngle = 180 - self.angle //not sure about this one xx
             self.xComponent = -(self.mag * cos(rAngle))
             self.yComponent = -(self.mag * sin(rAngle))
         case 270...360:
             let rAngle = 360 - self.angle
-            self.xComponent = self.mag * cos(rAngle)
+            self.xComponent = (self.mag * cos(rAngle))
             self.yComponent = -(self.mag * sin(rAngle))
         default:
             print("invalid angle")
         }
-        print(self.xComponent, self.yComponent) //debug
     }
 }
 
-var testForce = Force(mag: 15, angle: 250, pDist: 10)
+//var testForce = Force(mag: 15, angle: 270, pDist: 10)
+print("how many forces are there?: ")
+
+
