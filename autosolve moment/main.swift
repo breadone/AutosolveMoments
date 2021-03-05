@@ -12,7 +12,7 @@ class Force {
     
     init(mag: Double, angle: Double, pDist: Double) {
         self.mag = mag //magnitude of vector
-        self.angle = angle //angle of vector !!FROM POS X AXIS!!
+        self.angle = angle //angle of vector in degrees !!FROM POS X AXIS!!
         self.pDist = pDist //perpendicular distance to pivot
         self.xComponent = 0
         self.yComponent = 0
@@ -20,10 +20,12 @@ class Force {
     }
     
     func CalcComponents() {
+        self.angle = (self.angle * Double.pi / 180) //convert into radians for swift
+        
         switch self.angle {
         case ...90:
             self.xComponent = self.mag * cos(self.angle)
-            self.yComponent = self.mag * cos(self.angle)
+            self.yComponent = self.mag * sin(self.angle)
         case 90...180:
             let rAngle = 180 - self.angle
             self.xComponent = -(self.mag * cos(rAngle))
@@ -39,6 +41,8 @@ class Force {
         default:
             print("invalid angle")
         }
+        print(self.xComponent, self.yComponent) //debug
     }
 }
 
+var testForce = Force(mag: 15, angle: 250, pDist: 10)
