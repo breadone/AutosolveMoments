@@ -44,13 +44,9 @@ class Force {
     }
 }
 
-var Forces = [Force]() //creates empty array of forces
+var Forces = [Force]() //creates empty array of forces //man swift array syntax is weird
 
 for i in 1...10 { //limit of 10 forces for now, will prob increase in the future
-    print("Add Force? (y/n): ")
-    if readLine() == "n" {
-        break
-    }
     
     print("For Force \(i), enter it's magnitude: ")
     let mag = Double(readLine() ?? "0")!
@@ -62,6 +58,11 @@ for i in 1...10 { //limit of 10 forces for now, will prob increase in the future
     let pdist = Double(readLine() ?? "0")!
     
     Forces.append(Force(mag: mag, angle: angle, pDist: pdist))
+        
+    print("Add another Force? (y/n): ")
+    if readLine() == "n" {
+        break
+    }
 }
 
 
