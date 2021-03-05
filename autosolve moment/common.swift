@@ -7,6 +7,8 @@
 
 import Foundation
 
+public var π = Double.pi
+
 extension Double {
     /// Rounds the double to decimal places value
     func roundToPlaces(toPlaces places:Int) -> Double {

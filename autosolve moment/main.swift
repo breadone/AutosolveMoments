@@ -23,19 +23,19 @@ class Force {
         self.angle = (self.angle * Double.pi / 180) //convert into radians for swift
         
         switch self.angle {
-        case 0...90: //A quadrant
+        case 0...π/2: //A quadrant
             self.xComponent = (self.mag * cos(self.angle))
             self.yComponent = (self.mag * sin(self.angle))
-        case 90...180://S Quadrant
-            let rAngle = 180 - self.angle
+        case π/2...π://S Quadrant
+            let rAngle = π - self.angle
             self.xComponent = -(self.mag * cos(rAngle))
             self.yComponent = (self.mag * sin(rAngle))
-        case 180...270://T Quadrant
-            let rAngle = 180 - self.angle
+        case π...(3/2) * π://T Quadrant
+            let rAngle = π - self.angle
             self.xComponent = -(self.mag * cos(rAngle))
             self.yComponent = -(self.mag * sin(rAngle))
-        case 270...360://C Quadrant
-            let rAngle = 360 - self.angle
+        case (3/2) * π...2*π://C Quadrant
+            let rAngle = 2*π - self.angle
             self.xComponent = (self.mag * cos(rAngle))
             self.yComponent = -(self.mag * sin(rAngle))
         default:
@@ -70,7 +70,5 @@ for i in 0...Forces.count - 1 {
     sumX += Forces[i].xComponent.roundToPlaces(toPlaces: 3)
     sumY += Forces[i].yComponent.roundToPlaces(toPlaces: 3)
 }
-
-
 
 print("X: \(sumX)\nY: \(sumY)")
