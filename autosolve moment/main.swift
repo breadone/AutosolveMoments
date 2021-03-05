@@ -23,7 +23,7 @@ class Force {
         self.angle = (self.angle * Double.pi / 180) //convert into radians for swift
         
         switch self.angle {
-        case ...90: //A quadrant
+        case 0...90: //A quadrant
             self.xComponent = (self.mag * cos(self.angle))
             self.yComponent = (self.mag * sin(self.angle))
         case 90...180://S Quadrant
@@ -31,7 +31,7 @@ class Force {
             self.xComponent = -(self.mag * cos(rAngle))
             self.yComponent = (self.mag * sin(rAngle))
         case 180...270://T Quadrant
-            let rAngle = 180 - self.angle //not sure about this one xx
+            let rAngle = 180 - self.angle
             self.xComponent = -(self.mag * cos(rAngle))
             self.yComponent = -(self.mag * sin(rAngle))
         case 270...360://C Quadrant
@@ -42,23 +42,21 @@ class Force {
             print("invalid angle")
         }
     }
-    
 }
 
-var Forces = [Force]() //creates empty array of forces //man swift array syntax is weird
+var Forces = [Force]() //creates empty array of forces
 
-while true{
-    
+while true {
     print("Enter the new Force's magnitude: ")
-    let mag = Double(readLine() ?? "0")!
+    let newMag = Double(readLine() ?? "0")!
     
     print("Enter the new Force's angle, in degrees, from posX axis: ")
-    let angle = Double(readLine() ?? "0")!
+    let newAngle = Double(readLine() ?? "0")!
     
     print("Enter the new Force's perpendicular distance from the pivot: ")
-    let pdist = Double(readLine() ?? "0")!
+    let newpDist = Double(readLine() ?? "0")!
     
-    Forces.append(Force(mag: mag, angle: angle, pDist: pdist))
+    Forces.append(Force(mag: newMag, angle: newAngle, pDist: newpDist))
         
     print("Add another Force? (y/n): ")
     if readLine() == "n" {
@@ -68,9 +66,11 @@ while true{
 
 var sumX: Double = 0
 var sumY: Double = 0
-for i in 1...Forces.count {
-    
-    
-    sumX += Forces[i].xComponent
-    sumY += Forces[i].yComponent
+for i in 0...Forces.count - 1 {
+    sumX += Forces[i].xComponent.roundToPlaces(toPlaces: 3)
+    sumY += Forces[i].yComponent.roundToPlaces(toPlaces: 3)
 }
+
+
+
+print("X: \(sumX)\nY: \(sumY)")
