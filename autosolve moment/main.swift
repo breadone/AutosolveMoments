@@ -13,13 +13,13 @@ class Force {
     init(mag: Double, angle: Double, pDist: Double) {
         self.mag = mag //magnitude of vector
         self.angle = angle //angle of vector !!FROM POS X AXIS!!
-        self.pDist = pDist
+        self.pDist = pDist //perpendicular distance to pivot
         self.xComponent = 0
         self.yComponent = 0
-        CalcDist()
+        CalcComponents()
     }
     
-    func CalcDist() {
+    func CalcComponents() {
         switch self.angle {
         case ...90:
             self.xComponent = self.mag * cos(self.angle)
@@ -27,12 +27,18 @@ class Force {
         case 90...180:
             let rAngle = 180 - self.angle
             self.xComponent = -(self.mag * cos(rAngle))
-            self.yComponent = self.mag * cos(rAngle)
+            self.yComponent = self.mag * sin(rAngle)
+        case 180...270:
+            let rAngle = 180 - self.angle //not sure about this one xx
+            self.xComponent = -(self.mag * cos(rAngle))
+            self.yComponent = -(self.mag * sin(rAngle))
+        case 270...360:
+            let rAngle = 360 - self.angle
+            self.xComponent = self.mag * cos(rAngle)
+            self.yComponent = -(self.mag * sin(rAngle))
         default:
             print("invalid angle")
         }
-        
     }
-    
 }
 
