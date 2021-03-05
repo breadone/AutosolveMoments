@@ -14,3 +14,4 @@ extension Double {
         return (self * divisor).rounded() / divisor
     }
 } //source: https://stackoverflow.com/questions/27338573/rounding-a-double-value-to-x-number-of-decimal-places-in-swift
+
