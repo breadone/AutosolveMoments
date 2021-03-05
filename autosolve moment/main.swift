@@ -42,19 +42,20 @@ class Force {
             print("invalid angle")
         }
     }
+    
 }
 
 var Forces = [Force]() //creates empty array of forces //man swift array syntax is weird
 
-for i in 1...10 { //limit of 10 forces for now, will prob increase in the future
+while true{
     
-    print("For Force \(i), enter it's magnitude: ")
+    print("Enter the new Force's magnitude: ")
     let mag = Double(readLine() ?? "0")!
     
-    print("For Force \(i), enter it's angle, in degrees, from posX axis: ")
+    print("Enter the new Force's angle, in degrees, from posX axis: ")
     let angle = Double(readLine() ?? "0")!
     
-    print("For Force \(i), enter it's perpendicular distance from the pivot: ")
+    print("Enter the new Force's perpendicular distance from the pivot: ")
     let pdist = Double(readLine() ?? "0")!
     
     Forces.append(Force(mag: mag, angle: angle, pDist: pdist))
@@ -65,4 +66,11 @@ for i in 1...10 { //limit of 10 forces for now, will prob increase in the future
     }
 }
 
-
+var sumX: Double = 0
+var sumY: Double = 0
+for i in 1...Forces.count {
+    
+    
+    sumX += Forces[i].xComponent
+    sumY += Forces[i].yComponent
+}
