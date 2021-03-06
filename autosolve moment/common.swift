@@ -7,6 +7,11 @@
 
 import Foundation
 
+//<prefs>
+public var precision: Int = 2 //dp of answer, default is 2
+public var showComponents: Bool = true //whether or not to show the force components in the final answer, default is true
+//</prefs>
+
 public var π = Double.pi
 
 extension Double {

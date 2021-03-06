@@ -23,7 +23,7 @@ class Force {
     func CalcForceComponents() {
         self.angle = (self.angle * π / 180) //convert into radians
         
-        switch self.angle {
+        switch self.angle { //signs dont rlly make sense but trust me they work
         case 0...π/2: //A quadrant
             self.xForce = -(self.mag * cos(self.angle))
             self.yForce = (self.mag * sin(self.angle))
@@ -80,5 +80,7 @@ for i in 0...Forces.count - 1 {
 }
 
 print("------------")
-print("∑X: \(sumX.roundToPlaces(toPlaces: 2))\n∑Y: \(sumY.roundToPlaces(toPlaces: 2))\nTotal: \((sumX+sumY).roundToPlaces(toPlaces: 2))")
+print("∑X: \(sumX.roundToPlaces(toPlaces: precision))")
+print("∑Y: \(sumY.roundToPlaces(toPlaces: precision))")
+print("Total: \((sumX+sumY).roundToPlaces(toPlaces: precision))")
 print("------------")
