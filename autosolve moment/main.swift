@@ -8,72 +8,77 @@
 import Foundation
 
 class Force {
-    var mag, xComponent, yComponent, angle, dDist, xDist, yDist: Double
+    var mag, xForce, yForce, angle, xDist, yDist: Double
     
-    init(mag: Double, angle: Double, dDist: Double) {
+    init(mag: Double, angle: Double, xDist: Double, yDist: Double) {
         self.mag = mag //magnitude of vector
         self.angle = angle //angle of vector in degrees !!FROM POS X AXIS!!
-        self.dDist = dDist //direct distance to pivot
-        self.xComponent = 0
-        self.yComponent = 0
-        self.xDist = 0
-        self.yDist = 0
-        CalcComponents()
+        self.xForce = 0 //y component of force relative to axes
+        self.yForce = 0 //x component of force relative to axes
+        self.xDist = xDist //x component of distance to pivot
+        self.yDist = yDist //y component of distance to pivot
+        CalcForceComponents()
     }
     
-    func CalcComponents() {
-        self.angle = (self.angle * π / 180) //convert into radians for swift
+    func CalcForceComponents() {
+        self.angle = (self.angle * π / 180) //convert into radians
         
         switch self.angle {
         case 0...π/2: //A quadrant
-            self.xComponent = (self.mag * cos(self.angle))
-            self.yComponent = (self.mag * sin(self.angle))
+            self.xForce = (self.mag * cos(self.angle))
+            self.yForce = (self.mag * sin(self.angle))
         case π/2...π://S Quadrant
             let rAngle = π - self.angle
-            self.xComponent = -(self.mag * cos(rAngle))
-            self.yComponent = (self.mag * sin(rAngle))
+            self.xForce = -(self.mag * cos(rAngle))
+            self.yForce = (self.mag * sin(rAngle))
         case π...(3/2) * π://T Quadrant
             let rAngle = π - self.angle
-            self.xComponent = -(self.mag * cos(rAngle))
-            self.yComponent = -(self.mag * sin(rAngle))
+            self.xForce = -(self.mag * cos(rAngle))
+            self.yForce = -(self.mag * sin(rAngle))
         case (3/2) * π...2*π://C Quadrant
             let rAngle = 2*π - self.angle
-            self.xComponent = (self.mag * cos(rAngle))
-            self.yComponent = -(self.mag * sin(rAngle))
+            self.xForce = (self.mag * cos(rAngle))
+            self.yForce = -(self.mag * sin(rAngle))
         default:
             print("invalid angle")
         }
-        
-        self.xDist = self.dDist * cos(self.angle)
-        self.yDist = self.dDist * sin(self.angle)
     }
 }
 
 var Forces = [Force]() //creates empty array of forces
 
-while true { //inputs force(s)
+while true { //input force(s)
     print("Enter the new Force's magnitude: ", terminator: "")
     let newMag = Double(readLine() ?? "0")!
     
     print("Enter the new Force's angle, in degrees, from posX axis: ", terminator: "")
     let newAngle = Double(readLine() ?? "0")!
     
-    print("Enter the new Force's direct distance from the pivot: ", terminator: "")
-    let newdDist = Double(readLine() ?? "0")!
+    print("Enter the new Force's x distance from the pivot: ", terminator: "")
+    let newxDist = Double(readLine() ?? "0")!
     
-    Forces.append(Force(mag: newMag, angle: newAngle, dDist: newdDist))
+    print("Enter the new Force's y distance from the pivot: ", terminator: "")
+    let newyDist = Double(readLine() ?? "0")!
+    
+    Forces.append(Force(mag: newMag, angle: newAngle, xDist: newxDist, yDist: newyDist))
         
     print("Add another Force? (y/n): ", terminator: "")
     if readLine() == "n" {
         break
     }
 }
-
+//print(Forces[0].xForce, Forces[0].yForce)
 var sumX: Double = 0
 var sumY: Double = 0
+
 for i in 0...Forces.count - 1 {
-    sumX += Forces[i].xComponent * Forces[i].yDist
-    sumY += Forces[i].yComponent * Forces[i].xDist
+    sumX += (Forces[i].xForce * Forces[i].yDist)
+    sumY += (Forces[i].yForce * Forces[i].xDist)
 }
-print("-------")
+
+#if DEBUG
+print(Forces[0].xForce, Forces[0].yForce)
+#endif
+
+print("--------")
 print("∑X: \(sumX.roundToPlaces(toPlaces: 2))\n∑Y: \(sumY.roundToPlaces(toPlaces: 2))\nTotal: \((sumX+sumY).roundToPlaces(toPlaces: 3))")
