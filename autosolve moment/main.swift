@@ -27,16 +27,19 @@ class Force {
         case 0...π/2: //A quadrant
             self.xForce = (self.mag * cos(self.angle))
             self.yForce = (self.mag * sin(self.angle))
+            
         case π/2...π://S Quadrant
-            let rAngle = π - self.angle
+            let rAngle = abs(π - self.angle)
             self.xForce = -(self.mag * cos(rAngle))
             self.yForce = (self.mag * sin(rAngle))
-        case π...(3/2) * π://T Quadrant
-            let rAngle = π - self.angle
+            
+        case π...(3/2)*π://T Quadrant
+            let rAngle = abs(π - self.angle)
             self.xForce = -(self.mag * cos(rAngle))
             self.yForce = -(self.mag * sin(rAngle))
-        case (3/2) * π...2*π://C Quadrant
-            let rAngle = 2*π - self.angle
+            
+        case (3/2)*π...2*π://C Quadrant
+            let rAngle = abs(2*π - self.angle)
             self.xForce = (self.mag * cos(rAngle))
             self.yForce = -(self.mag * sin(rAngle))
         default:
@@ -54,10 +57,10 @@ while true { //input force(s)
     print("Enter the new Force's angle, in degrees, from posX axis: ", terminator: "")
     let newAngle = Double(readLine() ?? "0")!
     
-    print("Enter the new Force's x distance from the pivot: ", terminator: "")
+    print("Enter the new Force's x distance from the pivot (L: -ve, R: +ve): ", terminator: "")
     let newxDist = Double(readLine() ?? "0")!
     
-    print("Enter the new Force's y distance from the pivot: ", terminator: "")
+    print("Enter the new Force's y distance from the pivot (U: +ve, D: -ve): ", terminator: "")
     let newyDist = Double(readLine() ?? "0")!
     
     Forces.append(Force(mag: newMag, angle: newAngle, xDist: newxDist, yDist: newyDist))
@@ -76,9 +79,8 @@ for i in 0...Forces.count - 1 {
     sumY += (Forces[i].yForce * Forces[i].xDist)
 }
 
-#if DEBUG
-print(Forces[0].xForce, Forces[0].yForce)
-#endif
+print(Forces[0].xForce.roundToPlaces(toPlaces: 2), Forces[0].yForce.roundToPlaces(toPlaces: 2))
 
-print("--------")
-print("∑X: \(sumX.roundToPlaces(toPlaces: 2))\n∑Y: \(sumY.roundToPlaces(toPlaces: 2))\nTotal: \((sumX+sumY).roundToPlaces(toPlaces: 3))")
+print("------------")
+print("∑X: \(sumX.roundToPlaces(toPlaces: 2))\n∑Y: \(sumY.roundToPlaces(toPlaces: 2))\nTotal: \((sumX+sumY).roundToPlaces(toPlaces: 2))")
+print("------------")
