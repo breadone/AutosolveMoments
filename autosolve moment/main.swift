@@ -25,22 +25,22 @@ class Force {
         
         switch self.angle {
         case 0...π/2: //A quadrant
-            self.xForce = (self.mag * cos(self.angle))
+            self.xForce = -(self.mag * cos(self.angle))
             self.yForce = (self.mag * sin(self.angle))
             
         case π/2...π://S Quadrant
             let rAngle = abs(π - self.angle)
-            self.xForce = -(self.mag * cos(rAngle))
+            self.xForce = (self.mag * cos(rAngle))
             self.yForce = (self.mag * sin(rAngle))
             
         case π...(3/2)*π://T Quadrant
             let rAngle = abs(π - self.angle)
-            self.xForce = -(self.mag * cos(rAngle))
+            self.xForce = (self.mag * cos(rAngle))
             self.yForce = -(self.mag * sin(rAngle))
             
         case (3/2)*π...2*π://C Quadrant
             let rAngle = abs(2*π - self.angle)
-            self.xForce = (self.mag * cos(rAngle))
+            self.xForce = -(self.mag * cos(rAngle))
             self.yForce = -(self.mag * sin(rAngle))
         default:
             print("invalid angle")
@@ -78,8 +78,6 @@ for i in 0...Forces.count - 1 {
     sumX += (Forces[i].xForce * Forces[i].yDist)
     sumY += (Forces[i].yForce * Forces[i].xDist)
 }
-
-print(Forces[0].xForce.roundToPlaces(toPlaces: 2), Forces[0].yForce.roundToPlaces(toPlaces: 2))
 
 print("------------")
 print("∑X: \(sumX.roundToPlaces(toPlaces: 2))\n∑Y: \(sumY.roundToPlaces(toPlaces: 2))\nTotal: \((sumX+sumY).roundToPlaces(toPlaces: 2))")
